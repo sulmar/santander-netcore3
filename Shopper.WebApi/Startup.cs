@@ -29,7 +29,8 @@ namespace Shopper.WebApi
         {
             services.AddControllers();
 
-            services.AddTransient<IProductRepository, FakeProductRepository>();
+            // services.AddTransient<IProductRepository, FakeProductRepository>();
+            services.AddSingleton<IProductRepository, FakeProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

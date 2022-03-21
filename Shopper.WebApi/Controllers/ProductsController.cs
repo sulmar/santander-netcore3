@@ -28,7 +28,7 @@ namespace Shopper.WebApi.Controllers
         //}
 
         // GET api/products/{id}
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "GetProductById")]
         public async Task<ActionResult<Product>> Get(int id)
         {
             var product = await productRepository.GetAsync(id);
@@ -96,6 +96,58 @@ namespace Shopper.WebApi.Controllers
             var products = await productRepository.GetAsync(searchCriteria);
 
             return Ok(products);
+        }
+
+
+        // POST api/products
+        [HttpPost]
+        public async Task<ActionResult<Product>> Post([FromBody] Product product)
+        {
+            await productRepository.AddAsync(product);
+
+            // return Created($"http://localhost:5000/api/products/{product.Id}", product);
+
+            // return new CreatedAtRouteResult("GetProductById", new { Id = product.Id }, product);
+
+            return CreatedAtRoute("GetProductById", new { Id = product.Id }, product);
+        }
+
+        // PUT api/products/{id}
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(int id, [FromBody] Product product)
+        {
+            if (id != product.Id)
+            {
+                return BadRequest();
+            }
+
+            await productRepository.UpdateAsync(product);
+
+            return NoContent();
+        }
+
+        // DELETE api/products/{id:int}
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            if (!await productRepository.ExistsAsync(id))
+            {
+                return NotFound();
+            }
+
+            await productRepository.RemoveAsync(id);
+
+            return Ok();
+        }
+
+        // HEAD api/products/{id:int}
+        [HttpHead("{id}")]
+        public async Task<ActionResult> Head(int id)
+        {
+            if (await productRepository.ExistsAsync(id))
+                return Ok();
+            else
+                return NotFound();
         }
 
     }

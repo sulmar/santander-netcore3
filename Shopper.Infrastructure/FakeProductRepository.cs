@@ -21,6 +21,20 @@ namespace Shopper.Infrastructure
             };
         }
 
+        public Task AddAsync(Product product)
+        {
+            product.Id = products.Values.Max(p => p.Id) + 1;
+
+            products.Add(product.Id, product);
+
+            return Task.CompletedTask;
+        }
+
+        public Task<bool> ExistsAsync(int id)
+        {
+            return Task.FromResult(products.ContainsKey(id));
+        }
+
         public Task<IEnumerable<Product>> GetAsync()
         {
             return Task.FromResult(products.Values.AsEnumerable());
@@ -74,6 +88,20 @@ namespace Shopper.Infrastructure
         {
             var results = products.Values.Where(p => p.Color.Equals(color, StringComparison.OrdinalIgnoreCase));
             return Task.FromResult(results);
+        }
+
+        public Task RemoveAsync(int id)
+        {
+            products.Remove(id);
+
+            return Task.CompletedTask;
+        }
+
+        public async Task UpdateAsync(Product product)
+        {
+            await RemoveAsync(product.Id);
+
+            products.Add(product.Id, product);            
         }
     }
 }

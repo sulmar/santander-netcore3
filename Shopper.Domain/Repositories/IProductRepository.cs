@@ -13,6 +13,10 @@ namespace Shopper.Domain
         Task<Product> GetAsync(string name);
         Task<IEnumerable<Product>> GetByColorAsync(string color);
         Task<IEnumerable<Product>> GetAsync(ProductSearchCriteria searchCriteria);
+        Task AddAsync(Product product);
+        Task UpdateAsync(Product product);
+        Task RemoveAsync(int id);
+        Task<bool> ExistsAsync(int id);
 
 
     }
