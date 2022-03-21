@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shopper.Domain;
+using Shopper.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,22 +72,30 @@ namespace Shopper.WebApi.Controllers
         // query string
 
         // GET api/products?color=red
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetByColor(string color)
-        {
-            IEnumerable<Product> products;
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Product>>> GetByColor(string color)
+        //{
+        //    IEnumerable<Product> products;
 
-            if (string.IsNullOrEmpty(color))
-            {
-                products = await productRepository.GetAsync();
-            }
-            else
-            {
-                products = await productRepository.GetByColorAsync(color);
-            }
+        //    if (string.IsNullOrEmpty(color))
+        //    {
+        //        products = await productRepository.GetAsync();
+        //    }
+        //    else
+        //    {
+        //        products = await productRepository.GetByColorAsync(color);
+        //    }
+
+        //    return Ok(products);
+        //}
+
+        // GET api/products?color=red&from=100&to=200
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Product>>> Get(ProductSearchCriteria searchCriteria)
+        {
+            var products = await productRepository.GetAsync(searchCriteria);
 
             return Ok(products);
-
         }
 
     }

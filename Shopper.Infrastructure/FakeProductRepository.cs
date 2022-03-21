@@ -46,7 +46,28 @@ namespace Shopper.Infrastructure
 
         public Task<IEnumerable<Product>> GetAsync(ProductSearchCriteria searchCriteria)
         {
-            throw new NotImplementedException();
+            var query = products.Values.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchCriteria.Color))
+            {
+                query = query.Where(p => p.Color.Equals(searchCriteria.Color, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (searchCriteria.From.HasValue)
+            {
+                query = query.Where(p => p.Price >= searchCriteria.From);
+            }
+
+            if (searchCriteria.To.HasValue)
+            {
+                query = query.Where(p => p.Price <= searchCriteria.To);
+            }
+
+            IEnumerable<Product> results = query.ToList();  // -> tutaj nastąpi przetworzenie zapytania (Expression)
+
+            return Task.FromResult(results);
+
+
         }
 
         public Task<IEnumerable<Product>> GetByColorAsync(string color)
