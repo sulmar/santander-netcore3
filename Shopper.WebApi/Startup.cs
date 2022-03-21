@@ -27,7 +27,10 @@ namespace Shopper.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            // dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
+            services
+                .AddControllers()
+                .AddNewtonsoftJson();
 
             // services.AddTransient<IProductRepository, FakeProductRepository>();
             services.AddSingleton<IProductRepository, FakeProductRepository>();

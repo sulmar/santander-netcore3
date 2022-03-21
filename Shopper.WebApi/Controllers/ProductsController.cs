@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using Shopper.Domain;
 using Shopper.Domain.Models;
 using System;
@@ -149,6 +150,27 @@ namespace Shopper.WebApi.Controllers
             else
                 return NotFound();
         }
+
+        // dotnet add package Microsoft.AspNetCore.JsonPatch
+        // Content-Type: application/json-patch+json
+
+        // PATCH api/products/{id:int}
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<Product> patchProduct)
+        {
+            // System.Text.Json.Serialization
+
+            Product product = await productRepository.GetAsync(id);
+
+            patchProduct.ApplyTo(product);
+
+            await productRepository.UpdateAsync(product);
+
+            return Ok();                        
+        }
+
+        // https://datatracker.ietf.org/doc/html/rfc7386
+        // Content-Type: application/merge-patch+json
 
     }
 }

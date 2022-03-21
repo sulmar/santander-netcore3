@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="3.1.23" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.23" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Shopper.Domain\Shopper.Domain.csproj" />
     <ProjectReference Include="..\Shopper.Infrastructure\Shopper.Infrastructure.csproj" />
   </ItemGroup>
