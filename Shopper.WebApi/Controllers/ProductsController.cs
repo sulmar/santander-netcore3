@@ -153,6 +153,7 @@ namespace Shopper.WebApi.Controllers
 
         // dotnet add package Microsoft.AspNetCore.JsonPatch
         // Content-Type: application/json-patch+json
+        // Note: add to Startup: services.AddControllers().AddNewtonsoftJson()
 
         // PATCH api/products/{id:int}
         [HttpPatch("{id}")]
