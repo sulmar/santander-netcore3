@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Shopper.Domain;
+using Shopper.Domain.Services;
 using Shopper.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace Shopper.WebApi
 
             // services.AddTransient<IProductRepository, FakeProductRepository>();
             services.AddSingleton<IProductRepository, FakeProductRepository>();
+            services.AddSingleton<IMessageService, FakeEmailSendMessage>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

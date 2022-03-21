@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shopper.Domain;
 using Shopper.Domain.Models;
+using Shopper.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,8 @@ namespace Shopper.WebApi.Controllers
     {
         private readonly IProductRepository productRepository;
 
-        public ProductsController(IProductRepository productRepository)
+        public ProductsController(
+            IProductRepository productRepository)
         {
             this.productRepository = productRepository;
         }
@@ -102,9 +104,11 @@ namespace Shopper.WebApi.Controllers
 
         // POST api/products
         [HttpPost]
-        public async Task<ActionResult<Product>> Post([FromBody] Product product)
+        public async Task<ActionResult<Product>> Post([FromServices] IMessageService messageService, [FromBody] Product product)
         {
             await productRepository.AddAsync(product);
+
+            await messageService.SendAsync($"Dodano nowy produkt {product.Name}");
 
             // return Created($"http://localhost:5000/api/products/{product.Id}", product);
 
