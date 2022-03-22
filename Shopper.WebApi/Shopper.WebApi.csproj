@@ -6,6 +6,14 @@
     <UserSecretsId>bcf6f353-34cb-4eff-b8db-d71747ed2c23</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="appsettings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appsettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="3.1.23" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.23" />
     <PackageReference Include="NSwag.AspNetCore" Version="13.15.10" />

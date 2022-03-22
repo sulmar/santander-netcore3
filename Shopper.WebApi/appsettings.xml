@@ -1,0 +1,6 @@
+﻿<Configuration>
+	<EmailMessageService>
+		<Address>smtp.santander.com</Address>
+		<Port>299</Port>
+	</EmailMessageService>
+</Configuration>
