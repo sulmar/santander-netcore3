@@ -15,6 +15,7 @@ using Shopper.Infrastructure.Fakers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Shopper.WebApi
@@ -34,7 +35,12 @@ namespace Shopper.WebApi
             // dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
             services
                 .AddControllers()
-                .AddNewtonsoftJson();
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
+                //.AddNewtonsoftJson(options =>
+                //    options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter()));
 
             // services.AddTransient<IProductRepository, FakeProductRepository>();
             services.AddSingleton<IProductRepository, FakeProductRepository>();
