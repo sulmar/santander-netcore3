@@ -7,5 +7,6 @@ namespace Shopper.Domain
     public interface ICustomerRepository : IEntityRepository<Customer>
     {
         Task<IEnumerable<Customer>> Get(Gender gender);
+        Task<bool> ExistsAsync(string email);
     }
 }

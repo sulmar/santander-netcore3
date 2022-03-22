@@ -45,23 +45,41 @@ namespace Shopper.WebApi.Controllers
             return Ok(customer);
         }
 
+        // POST api/customers
         [HttpPost]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<Customer>> PostFromBody([FromBody] Customer customer)
         {
+            if (await customerRepository.ExistsAsync(customer.Email))
+            {
+                ModelState.AddModelError(nameof(Customer.Email), $"Adres email {customer.Email} już istnieje");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             await customerRepository.AddAsync(customer);
 
             return CreatedAtRoute("GetCustomerById", new { Id = customer.Id }, customer);
         }
 
+
+        // POST api/customers
         [HttpPost]
         [Consumes("application/x-www-form-urlencoded")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<Customer>> PostFromForm([FromForm] Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             await customerRepository.AddAsync(customer);
 
             return CreatedAtRoute("GetCustomerById", new { Id = customer.Id }, customer);

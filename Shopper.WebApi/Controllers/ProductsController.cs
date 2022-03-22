@@ -106,6 +106,11 @@ namespace Shopper.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> Post([FromServices] IMessageService messageService, [FromBody] Product product)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             await productRepository.AddAsync(product);
 
             await messageService.SendAsync($"Dodano nowy produkt {product.Name}");

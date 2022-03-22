@@ -13,6 +13,13 @@ namespace Shopper.Infrastructure
         {
         }
 
+        public Task<bool> ExistsAsync(string email)
+        {
+            var exists = entities.Any(e => e.Value.Email.Equals(email, System.StringComparison.OrdinalIgnoreCase));
+
+            return Task.FromResult(exists);
+        }
+
         public Task<IEnumerable<Customer>> Get(Gender gender)
         {
             var customers = entities
