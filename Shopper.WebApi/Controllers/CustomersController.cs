@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Shopper.Domain;
 using Shopper.Domain.Models;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Shopper.WebApi.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")] // Prefix
     public class CustomersController : ControllerBase
     {
@@ -27,6 +29,9 @@ namespace Shopper.WebApi.Controllers
             return customers;
         }
 
+
+        [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id:int}", Name = "GetCustomerById")]
         public async Task<ActionResult<Product>> Get(int id)
         {
@@ -41,6 +46,8 @@ namespace Shopper.WebApi.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult<Customer>> Post([FromBody] Customer customer)
         {
             await customerRepository.AddAsync(customer);
@@ -50,6 +57,9 @@ namespace Shopper.WebApi.Controllers
 
         // PUT api/customers/{id}
         [HttpPut("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> Put(int id, [FromBody] Customer customer)
         {
             if (id != customer.Id)
@@ -64,6 +74,9 @@ namespace Shopper.WebApi.Controllers
 
         // DELETE api/customers/{id:int}
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> Delete(int id)
         {
             if (!await customerRepository.ExistsAsync(id))
@@ -78,6 +91,9 @@ namespace Shopper.WebApi.Controllers
 
         // HEAD api/customers/{id:int}
         [HttpHead("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
         public async Task<ActionResult> Head(int id)
         {
             if (await customerRepository.ExistsAsync(id))

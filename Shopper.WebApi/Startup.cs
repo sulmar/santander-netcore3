@@ -50,8 +50,11 @@ namespace Shopper.WebApi
             services.AddSingleton<Faker<Customer>, CustomerFaker>();
 
             services.AddSingleton<IMessageService, FakeEmailSendMessage>();
-            
-            
+
+            // dotnet add package NSwag.AspNetCore
+            services.AddOpenApiDocument();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +70,9 @@ namespace Shopper.WebApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseEndpoints(endpoints =>
             {
