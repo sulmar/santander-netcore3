@@ -49,7 +49,13 @@ namespace Shopper.WebApi
             services.AddSingleton<ICustomerRepository, FakeCustomerRepository>();
             services.AddSingleton<Faker<Customer>, CustomerFaker>();
 
-            services.AddSingleton<IMessageService, FakeEmailSendMessage>();
+            string address = Configuration["FakeEmailMessageServiceOptions:Address"];
+            int port = int.Parse(Configuration["FakeEmailMessageServiceOptions:Port"]);
+            string googleSecretKey = Configuration["GoogleMapSecretKey"];
+
+            services.AddSingleton<IMessageService, FakeEmailMessageService>();
+
+            services.Configure<FakeEmailMessageServiceOptions>(Configuration.GetSection("EmailMessageService"));
 
             // dotnet add package NSwag.AspNetCore
             services.AddOpenApiDocument();
