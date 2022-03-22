@@ -49,8 +49,8 @@ namespace Shopper.WebApi
             services.AddSingleton<ICustomerRepository, FakeCustomerRepository>();
             services.AddSingleton<Faker<Customer>, CustomerFaker>();
 
-            string address = Configuration["FakeEmailMessageServiceOptions:Address"];
-            int port = int.Parse(Configuration["FakeEmailMessageServiceOptions:Port"]);
+            string address = Configuration["EmailMessageService:Address"];
+            int port = int.Parse(Configuration["EmailMessageService:Port"]);
             string googleSecretKey = Configuration["GoogleMapSecretKey"];
 
             services.AddSingleton<IMessageService, FakeEmailMessageService>();
