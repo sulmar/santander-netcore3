@@ -1,4 +1,6 @@
 using Bogus;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Shopper.Domain;
 using Shopper.Domain.Models;
 using Shopper.Domain.Services;
+using Shopper.Domain.Validators;
 using Shopper.Infrastructure;
 using Shopper.Infrastructure.Fakers;
 using System;
@@ -35,6 +38,7 @@ namespace Shopper.WebApi
             // dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
             services
                 .AddControllers()
+                .AddFluentValidation()
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
@@ -60,6 +64,8 @@ namespace Shopper.WebApi
             // dotnet add package NSwag.AspNetCore
             services.AddOpenApiDocument();
 
+            services.AddTransient<IValidator<Customer>, CustomerValidator>();
+            services.AddTransient<IValidator<Product>, ProductValidator>();
 
         }
 

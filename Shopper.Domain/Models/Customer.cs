@@ -11,13 +11,13 @@ namespace Shopper.Domain.Models
         public string FirstName { get; set; }        
         public string LastName { get; set; }
 
-        [EmailAddress]
-        [DisplayName("Adres email")]
+        //[EmailAddress]
+        //[DisplayName("Adres email")]
         public string Email { get; set; }
         public Gender Gender { get; set; }
         public bool IsRemoved { get; set; }
 
-        [Compare(nameof(ConfirmPassword))]
+        //[Compare(nameof(ConfirmPassword))]
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
     }
