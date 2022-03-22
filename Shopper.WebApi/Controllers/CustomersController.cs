@@ -46,9 +46,21 @@ namespace Shopper.WebApi.Controllers
         }
 
         [HttpPost]
+        [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<Customer>> Post([FromBody] Customer customer)
+        {
+            await customerRepository.AddAsync(customer);
+
+            return CreatedAtRoute("GetCustomerById", new { Id = customer.Id }, customer);
+        }
+
+        [HttpPost]
+        [Consumes("application/x-www-form-urlencoded")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<Customer>> Post2([FromForm] Customer customer)
         {
             await customerRepository.AddAsync(customer);
 
