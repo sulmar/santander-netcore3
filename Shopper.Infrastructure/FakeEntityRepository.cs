@@ -1,4 +1,5 @@
-﻿using Shopper.Domain;
+﻿using Bogus;
+using Shopper.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,9 +11,14 @@ namespace Shopper.Infrastructure
     {
         protected readonly IDictionary<int, TEntity> entities;
 
-        public FakeEntityRepository()
+        public FakeEntityRepository(Faker<TEntity> faker)
         {
-            entities = new Dictionary<int, TEntity>();
+            // entities = new Dictionary<int, TEntity>();
+
+            var list = faker.Generate(100);
+
+            entities = list.ToDictionary(p=>p.Id);
+            
         }
 
         public virtual Task AddAsync(TEntity entity)

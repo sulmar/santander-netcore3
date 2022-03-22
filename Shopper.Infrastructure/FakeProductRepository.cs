@@ -1,4 +1,5 @@
-﻿using Shopper.Domain;
+﻿using Bogus;
+using Shopper.Domain;
 using Shopper.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,9 @@ namespace Shopper.Infrastructure
     {
         private readonly IDictionary<int, Product> products;
 
-        public FakeProductRepository()
+        public FakeProductRepository(Faker<Product> faker)
+            : base(faker)
         {
-            products = new Dictionary<int, Product>
-            {
-                { 1, new Product { Id = 1, Name = "Product1", Color = "Black", Price = 0.99m } },
-                { 2, new Product { Id = 2, Name = "Product2", Color = "Blue", Price = 10.99m } } ,
-                { 3, new Product { Id = 3, Name = "Product3", Color = "Red", Price = 0.59m } },
-            };
         }
 
         

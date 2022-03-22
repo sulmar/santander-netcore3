@@ -1,3 +1,4 @@
+using Bogus;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,8 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Shopper.Domain;
+using Shopper.Domain.Models;
 using Shopper.Domain.Services;
 using Shopper.Infrastructure;
+using Shopper.Infrastructure.Fakers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +39,8 @@ namespace Shopper.WebApi
             // services.AddTransient<IProductRepository, FakeProductRepository>();
             services.AddSingleton<IProductRepository, FakeProductRepository>();
             services.AddSingleton<IMessageService, FakeEmailSendMessage>();
+            services.AddSingleton<Faker<Product>, ProductFaker>();
+            services.AddSingleton<Faker<Customer>, CustomerFaker>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

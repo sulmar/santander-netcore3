@@ -1,4 +1,5 @@
-﻿using Shopper.Domain;
+﻿using Bogus;
+using Shopper.Domain;
 using Shopper.Domain.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,10 @@ namespace Shopper.Infrastructure
 {
     public class FakeCustomerRepository : FakeEntityRepository<Customer>, ICustomerRepository
     {
+        public FakeCustomerRepository(Faker<Customer> faker) : base(faker)
+        {
+        }
+
         public Task<IEnumerable<Customer>> Get(Gender gender)
         {
             var customers = entities
