@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.Domain", "Shopper.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.Infrastructure", "Shopper.Infrastructure\Shopper.Infrastructure.csproj", "{5A411BA9-A789-4FFA-BD81-1786F6F3E2EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.ApiEndpoints", "Shopper.ApiEndpoints\Shopper.ApiEndpoints.csproj", "{F55ED71C-B8ED-4ED0-8433-8453891E6ECF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5A411BA9-A789-4FFA-BD81-1786F6F3E2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A411BA9-A789-4FFA-BD81-1786F6F3E2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A411BA9-A789-4FFA-BD81-1786F6F3E2EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F55ED71C-B8ED-4ED0-8433-8453891E6ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F55ED71C-B8ED-4ED0-8433-8453891E6ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F55ED71C-B8ED-4ED0-8433-8453891E6ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F55ED71C-B8ED-4ED0-8433-8453891E6ECF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
