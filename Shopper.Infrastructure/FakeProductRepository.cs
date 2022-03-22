@@ -11,7 +11,7 @@ namespace Shopper.Infrastructure
 
     public class FakeProductRepository : FakeEntityRepository<Product>, IProductRepository
     {
-        private readonly IDictionary<int, Product> products;
+        private IDictionary<int, Product> products => entities;
 
         public FakeProductRepository(Faker<Product> faker)
             : base(faker)

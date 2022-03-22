@@ -38,9 +38,14 @@ namespace Shopper.WebApi
 
             // services.AddTransient<IProductRepository, FakeProductRepository>();
             services.AddSingleton<IProductRepository, FakeProductRepository>();
-            services.AddSingleton<IMessageService, FakeEmailSendMessage>();
             services.AddSingleton<Faker<Product>, ProductFaker>();
+
+            services.AddSingleton<ICustomerRepository, FakeCustomerRepository>();
             services.AddSingleton<Faker<Customer>, CustomerFaker>();
+
+            services.AddSingleton<IMessageService, FakeEmailSendMessage>();
+            
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
