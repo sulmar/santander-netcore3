@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Shopper.Infrastructure
 {
-    public class FakeProductRepository : IProductRepository
+
+    public class FakeProductRepository : FakeEntityRepository<Product>, IProductRepository
     {
         private readonly IDictionary<int, Product> products;
 
@@ -21,43 +22,7 @@ namespace Shopper.Infrastructure
             };
         }
 
-        public Task AddAsync(Product product)
-        {
-            product.Id = products.Values.Max(p => p.Id) + 1;
-
-            products.Add(product.Id, product);
-
-            return Task.CompletedTask;
-        }
-
-        public Task<bool> ExistsAsync(int id)
-        {
-            return Task.FromResult(products.ContainsKey(id));
-        }
-
-        public Task<IEnumerable<Product>> GetAsync()
-        {
-            return Task.FromResult(products.Values.AsEnumerable());
-        }
-
-        public Task<Product> GetAsync(int id)
-        {
-            if (products.TryGetValue(id, out Product product))
-            {
-                return Task.FromResult(product);
-            }
-            else
-            {
-                return Task.FromResult<Product>(null);
-            }
-        }
-
-        public Task<Product> GetAsync(string name)
-        {
-            var product = products.Values.SingleOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-            return Task.FromResult(product);
-        }
-
+        
         public Task<IEnumerable<Product>> GetAsync(ProductSearchCriteria searchCriteria)
         {
             var query = products.Values.AsQueryable();
@@ -84,24 +49,19 @@ namespace Shopper.Infrastructure
 
         }
 
+        public Task<Product> GetAsync(string name)
+        {
+            var product = entities.Values.SingleOrDefault(e => e.Name == name);
+
+            return Task.FromResult(product);
+        }
+
         public Task<IEnumerable<Product>> GetByColorAsync(string color)
         {
             var results = products.Values.Where(p => p.Color.Equals(color, StringComparison.OrdinalIgnoreCase));
             return Task.FromResult(results);
         }
 
-        public Task RemoveAsync(int id)
-        {
-            products.Remove(id);
-
-            return Task.CompletedTask;
-        }
-
-        public async Task UpdateAsync(Product product)
-        {
-            await RemoveAsync(product.Id);
-
-            products.Add(product.Id, product);            
-        }
+      
     }
 }
