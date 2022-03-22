@@ -49,7 +49,7 @@ namespace Shopper.WebApi.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<Customer>> Post([FromBody] Customer customer)
+        public async Task<ActionResult<Customer>> PostFromBody([FromBody] Customer customer)
         {
             await customerRepository.AddAsync(customer);
 
@@ -60,7 +60,7 @@ namespace Shopper.WebApi.Controllers
         [Consumes("application/x-www-form-urlencoded")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<Customer>> Post2([FromForm] Customer customer)
+        public async Task<ActionResult<Customer>> PostFromForm([FromForm] Customer customer)
         {
             await customerRepository.AddAsync(customer);
 
