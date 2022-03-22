@@ -58,6 +58,11 @@ namespace Shopper.Infrastructure
             return Task.FromResult(results);
         }
 
-      
+        public Task<IEnumerable<Product>> GetByCustomer(int customerId)
+        {
+            var results = products.Values.AsEnumerable();
+
+            return Task.FromResult(results);
+        }
     }
 }

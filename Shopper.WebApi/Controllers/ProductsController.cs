@@ -177,5 +177,14 @@ namespace Shopper.WebApi.Controllers
         // https://datatracker.ietf.org/doc/html/rfc7386
         // Content-Type: application/merge-patch+json
 
+        // GET api/customers/{customerId}/products
+        [HttpGet("/api/customers/{customerId}/products")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetByCustomer(int customerId)
+        {
+            var products = await productRepository.GetByCustomer(customerId);
+
+            return Ok(products);
+        }
+
     }
 }
