@@ -20,11 +20,31 @@ namespace Shopper.Domain.Models
         //[Compare(nameof(ConfirmPassword))]
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+
     }
 
     public enum Gender
-    {        
+    {
         Male,
         Female
     }
+
+    // primitive-obsession
+    public class Sensor
+    {
+        public Voltage Voltage { get; set; }
+        public Power Power { get; set; }
+    }
+
+    public class Voltage
+    {
+        public float Value { get; set; }
+    }
+
+    public class Power
+    {
+        public float Value { get; set; }
+    }
+
+ 
 }
