@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
+using Shopper.Api.Middlewares;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,32 +22,40 @@ namespace Shopper.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+
+            #region Use i Run
+
             // Logger (middleware)
-            app.Use(async (context, next) =>
-            {
-                logger.LogInformation("{0} {1}", context.Request.Method, context.Request.Path);
+            //app.Use(async (context, next) =>
+            //{
+            //    logger.LogInformation("{0} {1}", context.Request.Method, context.Request.Path);
 
-                await next();
+            //    await next();
 
-                logger.LogInformation("StatusCode: {0}", context.Response.StatusCode);
+            //    logger.LogInformation("StatusCode: {0}", context.Response.StatusCode);
 
-            });
+            //});
 
             // Secret-Key (middleware)
-            app.Use(async (context, next) =>
-            {
-                if (context.Request.Headers.TryGetValue("Secret-Key", out StringValues secretKey))
-                {
-                    if (secretKey == "123")
-                    {
-                        await next();
-                    }
-                    else
-                    {
-                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    }                    
-                }
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //    if (context.Request.Headers.TryGetValue("Secret-Key", out StringValues secretKey))
+            //    {
+            //        if (secretKey == "123")
+            //        {
+            //            await next();
+            //        }
+            //        else
+            //        {
+            //            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            //        }                    
+            //    }
+            //});
+
+            #endregion
+
+            app.UseMiddleware<LoggerMiddleware>();
+            app.UseMiddleware<SecretKeyMiddleware>();
 
             app.Run(context => context.Response.WriteAsync($"Hello {context.Request.Path}"));
         }
