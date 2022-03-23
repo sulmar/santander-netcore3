@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld.ConsoleClient", "HelloWorld.ConsoleClient\HelloWorld.ConsoleClient.csproj", "{E283B18F-AC11-4076-9019-22A5701B44F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorld.ConsoleClient", "HelloWorld.ConsoleClient\HelloWorld.ConsoleClient.csproj", "{E283B18F-AC11-4076-9019-22A5701B44F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.WebApi", "Shopper.WebApi\Shopper.WebApi.csproj", "{1AFEB707-9BCD-4C1D-98D1-5512804873D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.WebApi", "Shopper.WebApi\Shopper.WebApi.csproj", "{1AFEB707-9BCD-4C1D-98D1-5512804873D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.Domain", "Shopper.Domain\Shopper.Domain.csproj", "{7D936DB5-F85C-4912-BCDD-2B321AC0B93E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.Domain", "Shopper.Domain\Shopper.Domain.csproj", "{7D936DB5-F85C-4912-BCDD-2B321AC0B93E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.Infrastructure", "Shopper.Infrastructure\Shopper.Infrastructure.csproj", "{5A411BA9-A789-4FFA-BD81-1786F6F3E2EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.Infrastructure", "Shopper.Infrastructure\Shopper.Infrastructure.csproj", "{5A411BA9-A789-4FFA-BD81-1786F6F3E2EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.ApiEndpoints", "Shopper.ApiEndpoints\Shopper.ApiEndpoints.csproj", "{F55ED71C-B8ED-4ED0-8433-8453891E6ECF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.ApiEndpoints", "Shopper.ApiEndpoints\Shopper.ApiEndpoints.csproj", "{F55ED71C-B8ED-4ED0-8433-8453891E6ECF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.Api", "Shopper.Api\Shopper.Api.csproj", "{E55D3CDF-902A-4C2B-AC3E-3781E0584669}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F55ED71C-B8ED-4ED0-8433-8453891E6ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F55ED71C-B8ED-4ED0-8433-8453891E6ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F55ED71C-B8ED-4ED0-8433-8453891E6ECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E55D3CDF-902A-4C2B-AC3E-3781E0584669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E55D3CDF-902A-4C2B-AC3E-3781E0584669}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E55D3CDF-902A-4C2B-AC3E-3781E0584669}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E55D3CDF-902A-4C2B-AC3E-3781E0584669}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
