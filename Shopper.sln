@@ -13,7 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.Infrastructure", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.ApiEndpoints", "Shopper.ApiEndpoints\Shopper.ApiEndpoints.csproj", "{F55ED71C-B8ED-4ED0-8433-8453891E6ECF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.Api", "Shopper.Api\Shopper.Api.csproj", "{E55D3CDF-902A-4C2B-AC3E-3781E0584669}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.Api", "Shopper.Api\Shopper.Api.csproj", "{E55D3CDF-902A-4C2B-AC3E-3781E0584669}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.SignalRServer", "Shopper.SignalRServer\Shopper.SignalRServer.csproj", "{CAC639FC-82DF-437C-9738-906F85DC45FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.Sender.ConsoleClient", "Shopper.Sender.ConsoleClient\Shopper.Sender.ConsoleClient.csproj", "{5930848C-0CCA-47DE-9823-A4A9925E8B54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.Receiver.ConsoleClient", "Shopper.Receiver.ConsoleClient\Shopper.Receiver.ConsoleClient.csproj", "{1DF565B6-F892-45C1-9A73-F2DF5D03EC7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +51,18 @@ Global
 		{E55D3CDF-902A-4C2B-AC3E-3781E0584669}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E55D3CDF-902A-4C2B-AC3E-3781E0584669}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E55D3CDF-902A-4C2B-AC3E-3781E0584669}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAC639FC-82DF-437C-9738-906F85DC45FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAC639FC-82DF-437C-9738-906F85DC45FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAC639FC-82DF-437C-9738-906F85DC45FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAC639FC-82DF-437C-9738-906F85DC45FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5930848C-0CCA-47DE-9823-A4A9925E8B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5930848C-0CCA-47DE-9823-A4A9925E8B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5930848C-0CCA-47DE-9823-A4A9925E8B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5930848C-0CCA-47DE-9823-A4A9925E8B54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DF565B6-F892-45C1-9A73-F2DF5D03EC7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF565B6-F892-45C1-9A73-F2DF5D03EC7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF565B6-F892-45C1-9A73-F2DF5D03EC7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF565B6-F892-45C1-9A73-F2DF5D03EC7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
