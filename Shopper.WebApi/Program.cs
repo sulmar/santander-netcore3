@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Formatting.Compact;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,16 @@ namespace Shopper.WebApi
     {
         public static void Main(string[] args)
         {
+            // dotnet add package Serilog.AspNetCore
+
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.WithClientIp()
+                .Enrich.WithClientAgent()
+                .WriteTo.Console()   
+                .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File(new CompactJsonFormatter(), "logs/log.json")
+                .CreateLogger();
+
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -36,7 +48,8 @@ namespace Shopper.WebApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+                .UseSerilog();
 
 
 

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using Shopper.Domain;
 using Shopper.Domain.Models;
 using Shopper.Domain.Services;
@@ -67,6 +68,8 @@ namespace Shopper.WebApi
             services.AddTransient<IValidator<Customer>, CustomerValidator>();
             services.AddTransient<IValidator<Product>, ProductValidator>();
 
+            services.AddHttpContextAccessor();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +80,8 @@ namespace Shopper.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            // app.UseSerilogRequestLogging();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -85,6 +90,8 @@ namespace Shopper.WebApi
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
+
+            
 
             app.UseEndpoints(endpoints =>
             {

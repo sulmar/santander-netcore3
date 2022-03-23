@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Shopper.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -18,14 +19,16 @@ namespace Shopper.Infrastructure
     public class FakeEmailMessageService : IMessageService
     {
         private readonly FakeEmailMessageServiceOptions options;
-        public FakeEmailMessageService(IOptions<FakeEmailMessageServiceOptions> options)
+        private readonly ILogger<FakeEmailMessageService> logger;
+        public FakeEmailMessageService(ILogger<FakeEmailMessageService> logger, IOptions<FakeEmailMessageServiceOptions> options)
         {
             this.options = options.Value;
+            this.logger = logger;
         }
 
         public Task SendAsync(string message)
         {
-            Trace.WriteLine($"Sending email {message} via {options.Address}:{options.Port}");
+            logger.LogInformation("Sending email {0} via {1}:{2}", message, options.Address, options.Port);
 
             return Task.CompletedTask;
         }
