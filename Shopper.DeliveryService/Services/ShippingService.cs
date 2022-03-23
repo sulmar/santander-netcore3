@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using Bogus;
+using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,25 @@ namespace Shopper.DeliveryService.Services
 
             return Task.FromResult(reply);
             
+        }
+
+        public override async Task GetNextLocation(GetNextLocationRequest request, IServerStreamWriter<GetNextLocationReply> responseStream, ServerCallContext context)
+        {
+            var faker = new Faker<GetNextLocationReply>()
+                .RuleFor(p => p.CustomerName, f => f.Company.CompanyName())
+                .RuleFor(p => p.Longitude, f => (float) f.Address.Longitude())
+                .RuleFor(p => p.Latitude, f => (float)f.Address.Latitude());
+
+            var nextLocations = faker.GenerateForever();
+
+            
+            foreach (var nextLocation in nextLocations)
+            {
+                logger.LogInformation($"{nextLocation.CustomerName} ({nextLocation.Latitude},{nextLocation.Longitude})");
+
+                await responseStream.WriteAsync(nextLocation);
+                await Task.Delay(TimeSpan.FromSeconds(0.01));
+            }
         }
     }
 }

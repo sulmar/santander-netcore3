@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Grpc.Core;
 using Grpc.Net.Client;
 using Shopper.DeliveryService;
 using System;
@@ -12,6 +13,33 @@ namespace Shopper.DeliveryConsoleClient
         {
             Console.WriteLine("Hello World!");
 
+            // await RequestReplayTest();
+
+            const string url = "https://localhost:5001";
+
+            var channel = GrpcChannel.ForAddress(url);
+
+            Shopper.DeliveryService.ShippingService.ShippingServiceClient client = new DeliveryService.ShippingService.ShippingServiceClient(channel);
+
+            var request = new GetNextLocationRequest { DriverId = 1 };
+
+            var reply = client.GetNextLocation(request);
+
+            var nextLocations = reply.ResponseStream.ReadAllAsync();
+
+            await foreach (var nextLocation in nextLocations)
+            {
+                Console.WriteLine($"{nextLocation.CustomerName} ({nextLocation.Latitude},{nextLocation.Longitude})");
+            }
+
+            Console.WriteLine("Press key to exit.");
+            Console.ReadKey();
+
+
+        }
+
+        private static async Task RequestReplayTest()
+        {
             const string url = "https://localhost:5001";
 
             var channel = GrpcChannel.ForAddress(url);
@@ -26,7 +54,7 @@ namespace Shopper.DeliveryConsoleClient
 
             foreach (var request in requests)
             {
-                Console.Write($"Send {request.OrderId} {request.Sign} Status: " );
+                Console.Write($"Send {request.OrderId} {request.Sign} Status: ");
 
                 var response = await client.ConfirmDeliveryAsync(request);
 
@@ -34,10 +62,8 @@ namespace Shopper.DeliveryConsoleClient
 
                 await Task.Delay(TimeSpan.FromSeconds(0.1));
 
-                
-            }
 
-            
+            }
         }
     }
 }

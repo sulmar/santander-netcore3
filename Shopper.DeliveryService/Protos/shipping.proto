@@ -6,7 +6,17 @@ package Shipping;
 
 service ShippingService {
 	rpc ConfirmDelivery (ConfirmDeliveryRequest) returns (ConfirmDeliveryReply);
+	rpc GetNextLocation (GetNextLocationRequest) returns (stream GetNextLocationReply);
+	rpc ChangeLocation (stream ChangeLocationRequest) returns (ChangeLocationReply);
+	rpc SendMessage (stream Message) returns (stream Message);
+	
 }
+
+message Message {
+	int32 user_id = 1;
+	string content = 2;
+}
+
 
 message ConfirmDeliveryRequest {
 	int32 orderId = 1;
@@ -15,4 +25,25 @@ message ConfirmDeliveryRequest {
 
 message ConfirmDeliveryReply {
 	bool isConfirmed = 1;
+}
+
+
+message GetNextLocationRequest {
+	int32 driverId = 1;
+}
+
+message GetNextLocationReply {
+	float latitude = 1;
+	float longitude = 2;
+	string customer_name = 3;
+}
+
+message ChangeLocationRequest {
+	int32 vehicle_id = 1;
+	float latitude = 2;
+	float longitude = 3;
+}
+
+message ChangeLocationReply {
+	bool is_confirmed = 1;
 }
