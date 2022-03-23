@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "Shopper.DeliveryService";
+
+package Shipping;
+
+service ShippingService {
+	rpc ConfirmDelivery (ConfirmDeliveryRequest) returns (ConfirmDeliveryReply);
+}
+
+message ConfirmDeliveryRequest {
+	int32 orderId = 1;
+	string sign = 2;
+}
+
+message ConfirmDeliveryReply {
+	bool isConfirmed = 1;
+}

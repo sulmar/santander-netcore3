@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.Sender.ConsoleClien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.Receiver.ConsoleClient", "Shopper.Receiver.ConsoleClient\Shopper.Receiver.ConsoleClient.csproj", "{1DF565B6-F892-45C1-9A73-F2DF5D03EC7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.DeliveryService", "Shopper.DeliveryService\Shopper.DeliveryService.csproj", "{826707D7-3871-4FDB-9D22-F835C21958BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.DeliveryConsoleClient", "Shopper.DeliveryConsoleClient\Shopper.DeliveryConsoleClient.csproj", "{E0802F52-C0F8-4F40-A8B5-0D340BE72C77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{1DF565B6-F892-45C1-9A73-F2DF5D03EC7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DF565B6-F892-45C1-9A73-F2DF5D03EC7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DF565B6-F892-45C1-9A73-F2DF5D03EC7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{826707D7-3871-4FDB-9D22-F835C21958BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{826707D7-3871-4FDB-9D22-F835C21958BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{826707D7-3871-4FDB-9D22-F835C21958BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{826707D7-3871-4FDB-9D22-F835C21958BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0802F52-C0F8-4F40-A8B5-0D340BE72C77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0802F52-C0F8-4F40-A8B5-0D340BE72C77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0802F52-C0F8-4F40-A8B5-0D340BE72C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0802F52-C0F8-4F40-A8B5-0D340BE72C77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
