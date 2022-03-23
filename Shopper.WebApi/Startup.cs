@@ -38,14 +38,14 @@ namespace Shopper.WebApi
         {
             // dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
             services
-                .AddControllers()
-                .AddFluentValidation()
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                });
-                //.AddNewtonsoftJson(options =>
-                //    options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter()));
+                 .AddControllers()
+                 .AddFluentValidation()
+                //.AddJsonOptions(options =>
+                //{
+                //    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                //});
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter()));
 
             // services.AddTransient<IProductRepository, FakeProductRepository>();
             services.AddSingleton<IProductRepository, FakeProductRepository>();
@@ -86,12 +86,10 @@ namespace Shopper.WebApi
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthorization();            
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
-
-            
 
             app.UseEndpoints(endpoints =>
             {

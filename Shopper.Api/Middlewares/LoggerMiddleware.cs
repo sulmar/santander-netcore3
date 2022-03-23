@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,16 @@ using System.Threading.Tasks;
 
 namespace Shopper.Api.Middlewares
 {
+    public static class LoggerMiddlewareExtensions
+    {
+        public static IApplicationBuilder UseLogger(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<LoggerMiddleware>();
+
+            return app;
+        }
+    }
+
     public class LoggerMiddleware
     {
         private readonly RequestDelegate next;

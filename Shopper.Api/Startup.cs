@@ -1,3 +1,4 @@
+using Bogus;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,10 +7,15 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using Shopper.Api.Middlewares;
+using Shopper.Domain;
+using Shopper.Infrastructure;
+using Shopper.Infrastructure.Fakers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Shopper.Api.Extensions;
 
 namespace Shopper.Api
 {
@@ -17,7 +23,8 @@ namespace Shopper.Api
     {
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSingleton<Faker<Product>, ProductFaker>();
+            services.AddSingleton<IProductRepository, FakeProductRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
@@ -54,10 +61,77 @@ namespace Shopper.Api
 
             #endregion
 
-            app.UseMiddleware<LoggerMiddleware>();
-            app.UseMiddleware<SecretKeyMiddleware>();
+            // app.UseMiddleware<LoggerMiddleware>();
+            // app.UseMiddleware<SecretKeyMiddleware>();
 
-            app.Run(context => context.Response.WriteAsync($"Hello {context.Request.Path}"));
+            app.UseLogger();
+            app.UseSecretKey();
+
+            app.UseRouting();
+
+            // Route-To-Code
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/",
+                    async context => await context.Response.WriteAsync("Hello World!"));
+
+                // GET api/products
+                endpoints.MapGet("api/products",
+                    async context =>
+                    {
+                        IProductRepository productRepository = context.RequestServices.GetService<IProductRepository>();
+
+                        if (productRepository == null)
+                            throw new Exception("Please add service for IProductRepository");
+
+                        var products = await productRepository.GetAsync();
+
+                        await context.Response.WriteAsJsonAsync(products);
+                    })
+                .RequireAuthorization();
+
+
+                // GET api/products/{id}
+
+                endpoints.MapGet("api/products/{id:int}", async context =>
+                {
+                    int id = Convert.ToInt32(context.Request.RouteValues["id"]);
+
+                    IProductRepository productRepository = context.RequestServices.GetRequiredService<IProductRepository>();
+
+                    var product = await productRepository.GetAsync(id);
+
+                    await context.Response.WriteAsJsonAsync(product);
+
+                });
+
+
+                // POST api/products
+
+                endpoints.MapPost("api/products", async context =>
+                {
+                    var form = await context.Request.ReadFormAsync();
+
+                    context.Response.StatusCode = StatusCodes.Status201Created;
+
+                });
+
+
+            });
+
+
+
+
+
+            // GET api/customers
+
+            // POST api/customers
+
+
+            // app.Run(context => context.Response.WriteAsync($"Hello {context.Request.Path}"));
+
+
         }
     }
 }
