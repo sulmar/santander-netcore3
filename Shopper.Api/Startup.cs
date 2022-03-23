@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Shopper.Api.Extensions;
+using Microsoft.AspNetCore.Routing;
 
 namespace Shopper.Api
 {
@@ -96,7 +97,7 @@ namespace Shopper.Api
 
                 endpoints.MapGet("api/products/{id:int}", async context =>
                 {
-                    int id = Convert.ToInt32(context.Request.RouteValues["id"]);
+                    int id = Convert.ToInt32(context.GetRouteValue("id"));
 
                     IProductRepository productRepository = context.RequestServices.GetRequiredService<IProductRepository>();
 
