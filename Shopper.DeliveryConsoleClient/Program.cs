@@ -1,7 +1,9 @@
 ﻿using Bogus;
 using Grpc.Core;
 using Grpc.Net.Client;
+using ProtoBuf.Grpc.Client;
 using Shopper.DeliveryService;
+using Shopper.DeliveryService.Domain;
 using System;
 using System.Threading.Tasks;
 
@@ -15,6 +17,41 @@ namespace Shopper.DeliveryConsoleClient
 
             // await RequestReplayTest();
 
+            // await GetStreamTest();
+
+            // dotnet add package Grpc.Net.Client
+            const string url = "https://localhost:5001";
+
+            var channel = GrpcChannel.ForAddress(url);
+            var client = channel.CreateGrpcService<Shopper.DeliveryService.Domain.IShippingService>();
+
+            var faker = new Faker<ConfirmDeliveryRequest2>()
+             .RuleFor(p => p.OrderId, f => f.IndexFaker)
+             .RuleFor(p => p.Sign, f => f.Lorem.Word());
+
+            var requests = faker.GenerateForever();
+
+            foreach (var request in requests)
+            {
+                Console.Write($"Send {request.OrderId} {request.Sign} Status: ");
+
+                var response = await client.ConfirmDelivery(request);
+
+                Console.WriteLine(response.IsConfirmed);
+
+                await Task.Delay(TimeSpan.FromSeconds(0.1));
+
+
+            }
+
+            Console.WriteLine("Press key to exit.");
+            Console.ReadKey();
+
+
+        }
+
+        private static async Task GetStreamTest()
+        {
             const string url = "https://localhost:5001";
 
             var channel = GrpcChannel.ForAddress(url);
@@ -31,11 +68,6 @@ namespace Shopper.DeliveryConsoleClient
             {
                 Console.WriteLine($"{nextLocation.CustomerName} ({nextLocation.Latitude},{nextLocation.Longitude})");
             }
-
-            Console.WriteLine("Press key to exit.");
-            Console.ReadKey();
-
-
         }
 
         private static async Task RequestReplayTest()
