@@ -1,0 +1,51 @@
+﻿@page "/products"
+
+@inject IProductRepository productRepository
+
+<h3>Products Page</h3>
+
+
+<SearchBarComponent />
+
+
+@*<ul>
+    @foreach(var product in products)
+    {
+        <li>@product.Name</li>
+    }
+</ul>*@
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var product in products)
+        {
+            <ProductItemComponent Product="@product" />            
+        }
+
+    </tbody>
+
+    <tfoot>
+        <tr>
+            Quantity: @products.Count()
+        </tr>
+
+    </tfoot>
+</table>
+
+@code {
+
+    private IEnumerable<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await productRepository.GetAsync();
+    }
+}

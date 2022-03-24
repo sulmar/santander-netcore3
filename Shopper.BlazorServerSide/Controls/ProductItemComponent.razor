@@ -1,0 +1,12 @@
+﻿<tr>
+    <td>@Product.Name</td>
+    <td>@Product.Price.ToString("C2")</td>
+</tr>
+
+
+@code {
+
+    [Parameter]
+    public Product Product { get; set; }
+
+}
