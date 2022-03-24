@@ -25,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.DeliveryService", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.DeliveryConsoleClient", "Shopper.DeliveryConsoleClient\Shopper.DeliveryConsoleClient.csproj", "{E0802F52-C0F8-4F40-A8B5-0D340BE72C77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.BlazorServerSide", "Shopper.BlazorServerSide\Shopper.BlazorServerSide.csproj", "{255BA567-802E-4034-B63D-C25AE97B89F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.BlazorServerSide", "Shopper.BlazorServerSide\Shopper.BlazorServerSide.csproj", "{255BA567-802E-4034-B63D-C25AE97B89F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopper.BlazorWebAssembly", "Shopper.BlazorWebAssembly\Shopper.BlazorWebAssembly.csproj", "{E694B7F0-8D10-410B-87A1-F05717FF76EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopper.BlazorWebAssembly", "Shopper.BlazorWebAssembly\Shopper.BlazorWebAssembly.csproj", "{E694B7F0-8D10-410B-87A1-F05717FF76EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

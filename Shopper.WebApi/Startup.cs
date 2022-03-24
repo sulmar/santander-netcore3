@@ -71,6 +71,15 @@ namespace Shopper.WebApi
 
             services.AddHttpContextAccessor();
 
+            services.AddCors(policy =>
+            {
+                policy.AddDefaultPolicy(
+                    options => 
+                    options.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,6 +93,8 @@ namespace Shopper.WebApi
             // app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
+
+            app.UseCors();
 
             app.UseRouting();
 

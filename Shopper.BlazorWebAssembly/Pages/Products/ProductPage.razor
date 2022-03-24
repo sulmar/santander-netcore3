@@ -1,0 +1,33 @@
+﻿@page "/products/{id:int}"
+
+@inject IProductService productService
+
+<h3>ProductPage</h3>
+
+<div>
+
+    @if (product != null)
+    {
+
+        @product.Name
+
+        <br />
+
+        @product.Description
+    }
+
+</div>
+
+@code {
+
+    private Product product;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        product = await productService.GetAsync(Id);
+    }
+
+}

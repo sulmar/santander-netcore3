@@ -1,16 +1,32 @@
 ﻿@page "/products"
 
-@inject Shopper.Domain.IProductRepository productRepository
+@inject IProductService productRepository
 
 <h3>Products Page</h3>
 
-
-
 <ul>
 
+    @if (products != null)
+    {
+
+        @foreach (var product in products)
+        {
+            <li>
+                <NavLink href="@($"products/{product.Id}")">@product.Name</NavLink>
+            </li>
+        }
+    }
 </ul>
 
 @code {
+
+
+    private IEnumerable<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await productRepository.GetAsync();
+    }
 
 
 
