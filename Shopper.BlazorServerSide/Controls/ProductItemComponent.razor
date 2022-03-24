@@ -1,5 +1,11 @@
 ﻿<tr>
-    <td>@Product.Name</td>
+    <td>
+        <NavLink href="@($"products/{Product.Id}")">
+            @Product.Name
+        </NavLink>
+        
+    </td>
+    <td>@Product.Color</td>
     <td>@Product.Price.ToString("C2")</td>
 </tr>
 

@@ -5,29 +5,40 @@
 <h3>Products Page</h3>
 
 
-<SearchBarComponent />
+<SearchBarComponent OnSearch="HandleSearch" />
 
 
 @*<ul>
-    @foreach(var product in products)
-    {
-        <li>@product.Name</li>
-    }
-</ul>*@
+        @foreach(var product in products)
+        {
+            <li>@product.Name</li>
+        }
+    </ul>*@
 
 <table>
     <thead>
         <tr>
             <th>Name</th>
+            <th>Color</th>
             <th>Price</th>
         </tr>
     </thead>
 
     <tbody>
 
-        @foreach (var product in products)
+        @if (products.Any())
         {
-            <ProductItemComponent Product="@product" />            
+            @foreach (var product in products)
+            {
+                <ProductItemComponent Product="@product" />
+
+            }
+        }
+        else
+        {
+            <tr>
+                <td>Cannot find products</td>
+            </tr>
         }
 
     </tbody>
@@ -47,5 +58,14 @@
     protected override async Task OnInitializedAsync()
     {
         products = await productRepository.GetAsync();
+    }
+
+    private async Task HandleSearch(string filter)
+    {
+        if (!string.IsNullOrEmpty(filter))
+            products = await productRepository.GetByColorAsync(filter);
+        else
+            products = await productRepository.GetAsync();
+
     }
 }

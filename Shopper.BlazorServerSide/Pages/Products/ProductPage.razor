@@ -1,0 +1,32 @@
+﻿@page "/products/{id:int}"
+
+@inject IProductRepository productRepository 
+
+<h3>Product Details</h3>
+
+<div>
+
+    <table>
+        <tbody>
+            <ProductItemComponent Product="@product" />
+        </tbody>
+    </table>
+    
+</div>
+
+@code {
+
+    private Product product;
+
+    [Parameter]
+    public int Id { get; set; }
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        product = await productRepository.GetAsync(Id);
+    }
+
+}

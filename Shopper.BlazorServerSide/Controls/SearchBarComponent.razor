@@ -1,16 +1,19 @@
 ﻿<div>
     Search:
     <input type="text" @bind-value="filter" />
-    <button @onclick="Search">Search</button>
+    <button @onclick="Search" >Search</button>
 </div>
 
 @code {
 
     private string filter;
 
+    [Parameter]
+    public EventCallback<string> OnSearch { get; set; }
+
     private void Search()
     {
-
+        OnSearch.InvokeAsync(filter);
     }
 
 }
