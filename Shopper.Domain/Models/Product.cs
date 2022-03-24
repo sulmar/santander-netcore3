@@ -17,7 +17,7 @@ namespace Shopper.Domain
         public int Id { get; set; }
     }
 
-    public class Product : BaseEntity
+    public partial class Product : BaseEntity
     {
         [Required, StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
