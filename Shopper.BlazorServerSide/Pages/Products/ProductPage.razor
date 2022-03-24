@@ -6,12 +6,21 @@
 
 <div>
 
-    <table>
-        <tbody>
-            <ProductItemComponent Product="@product" />
-        </tbody>
-    </table>
-    
+    @*<table>
+            <tbody>
+                <ProductItemComponent Product="@product" />
+            </tbody>
+        </table>*@
+
+    <div class="card" style="width: 18rem;">
+        <img src="https://picsum.photos/200/300" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">@product.Name</h5>
+            <p class="card-text">@product.Price</p>
+        </div>
+    </div>
+
+
 </div>
 
 @code {
