@@ -1,4 +1,5 @@
 using Bogus;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shopper.BlazorServerSide.Data;
 using Shopper.Domain;
+using Shopper.Domain.Validators;
 using Shopper.Infrastructure;
 using Shopper.Infrastructure.Fakers;
 using System;
@@ -35,7 +37,7 @@ namespace Shopper.BlazorServerSide
             services.AddSingleton<WeatherForecastService>();
 
             services.AddSingleton<IProductRepository, FakeProductRepository>();
-            services.AddSingleton<Faker<Product>, ProductFaker>();
+            services.AddSingleton<Faker<Product>, ProductFaker>();           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

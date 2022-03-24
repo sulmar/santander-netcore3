@@ -21,6 +21,26 @@
         </div>
     </div>
 
+    @*dotnet add package Accelist.FluentValidation.Blazor --version 4.0.0*@
+
+<EditForm Model="@product" OnValidSubmit="Save">
+
+    <DataAnnotationsValidator />
+
+    @*<FluentValidator></FluentValidator>*@
+
+    <ValidationSummary />
+
+    <label for="name">Name</label>
+    <InputText id="name" @bind-Value="product.Name" />
+
+    <label for="price">Price</label>
+    <InputNumber id="price" @bind-Value="product.Price" />
+
+    <button type="submit">Save</button>
+
+</EditForm>
+
 
 </div>
 
@@ -37,6 +57,11 @@
         await base.OnParametersSetAsync();
 
         product = await productRepository.GetAsync(Id);
+    }
+
+    private async Task Save()
+    {
+        await productRepository.UpdateAsync(product);
     }
 
 }

@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Accelist.FluentValidation.Blazor" Version="3.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Shopper.Domain\Shopper.Domain.csproj" />
     <ProjectReference Include="..\Shopper.Infrastructure\Shopper.Infrastructure.csproj" />
   </ItemGroup>

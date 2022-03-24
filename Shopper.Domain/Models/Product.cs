@@ -19,15 +19,15 @@ namespace Shopper.Domain
 
     public class Product : BaseEntity
     {
-        //[Required, StringLength(50, MinimumLength = 3)]
+        [Required, StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        // [Required]
+        [Required]
         public string Color { get; set; }
 
-        // [Required, Range(1, 100)]
+        [Required, Range(1, 100, ErrorMessage = "Maksymalna cena 100 zł")]
         public decimal Price { get; set; }
     }
 
