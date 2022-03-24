@@ -10,5 +10,8 @@ namespace Shopper.BlazorWebAssembly.IServices
     {
         Task<IEnumerable<Product>> GetAsync();
         Task<Product> GetAsync(int id);
+        Task AddAsync<Product>(Product product);
+        Task UpdateAsync<Product>(int id, Product product);
+        Task RemoveAsync(int id);
     }
 }

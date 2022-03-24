@@ -1,8 +1,6 @@
 ﻿using Shopper.BlazorWebAssembly.IServices;
 using Shopper.Domain;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -18,6 +16,11 @@ namespace Shopper.BlazorWebAssembly.Services
             this.client = client;
         }
 
+        public async Task AddAsync<Product>(Product product)
+        {
+            await client.PostAsJsonAsync("api/products", product);
+        }
+
         public async Task<IEnumerable<Product>> GetAsync()
         {
             var products = await client.GetFromJsonAsync<IEnumerable<Product>>("api/products");
@@ -30,6 +33,16 @@ namespace Shopper.BlazorWebAssembly.Services
             var product = await client.GetFromJsonAsync<Product>($"api/products/{id}");
 
             return product;
+        }
+
+        public async Task RemoveAsync(int id)
+        {
+            await client.DeleteAsync($"api/products/{id}");
+        }
+
+        public async Task UpdateAsync<Product>(int id, Product product)
+        {
+            await client.PutAsJsonAsync($"api/products/{id}", product);
         }
     }
 }
