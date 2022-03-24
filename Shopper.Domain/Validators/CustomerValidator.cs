@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Shopper.Domain.Validators
 {
+
     public class CustomerValidator : AbstractValidator<Customer>
     {
         private readonly ICustomerRepository customerRepository;
@@ -27,4 +28,6 @@ namespace Shopper.Domain.Validators
             return customerRepository.ExistsAsync(email);
         }
     }
+
+
 }

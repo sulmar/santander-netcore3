@@ -6,6 +6,8 @@ using System.Text;
 namespace Shopper.Domain.Validators
 {
     // dotnet add package FluentValidation
+
+    
     public class ProductValidator : AbstractValidator<Product>
     {
         public ProductValidator()
@@ -16,4 +18,6 @@ namespace Shopper.Domain.Validators
 
         }
     }
+
+    
 }
