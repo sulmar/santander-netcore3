@@ -3,7 +3,6 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using ProtoBuf.Grpc.Client;
 using Shopper.DeliveryService;
-using Shopper.DeliveryService.Domain;
 using System;
 using System.Threading.Tasks;
 
@@ -23,9 +22,9 @@ namespace Shopper.DeliveryConsoleClient
             const string url = "https://localhost:5001";
 
             var channel = GrpcChannel.ForAddress(url);
-            var client = channel.CreateGrpcService<Shopper.DeliveryService.Domain.IShippingService>();
+            var client = channel.CreateGrpcService<Shopper.DeliveryService.Contracts.IShippingService>();
 
-            var faker = new Faker<ConfirmDeliveryRequest2>()
+            var faker = new Faker<Shopper.DeliveryService.Contracts.ConfirmDeliveryRequest>()
              .RuleFor(p => p.OrderId, f => f.IndexFaker)
              .RuleFor(p => p.Sign, f => f.Lorem.Word());
 
