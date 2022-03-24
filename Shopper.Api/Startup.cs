@@ -66,7 +66,7 @@ namespace Shopper.Api
             // app.UseMiddleware<SecretKeyMiddleware>();
 
             app.UseLogger();
-            app.UseSecretKey();
+           // app.UseSecretKey();
 
             app.UseRouting();
 
