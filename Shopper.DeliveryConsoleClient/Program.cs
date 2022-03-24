@@ -18,6 +18,16 @@ namespace Shopper.DeliveryConsoleClient
 
             // await GetStreamTest();
 
+            await CodeFirstgRPCTest();
+
+            Console.WriteLine("Press key to exit.");
+            Console.ReadKey();
+
+
+        }
+
+        private static async Task CodeFirstgRPCTest()
+        {
             // dotnet add package Grpc.Net.Client
             const string url = "https://localhost:5001";
 
@@ -38,15 +48,8 @@ namespace Shopper.DeliveryConsoleClient
 
                 Console.WriteLine(response.IsConfirmed);
 
-                await Task.Delay(TimeSpan.FromSeconds(0.1));
-
-
+                await Task.Delay(TimeSpan.FromSeconds(1));
             }
-
-            Console.WriteLine("Press key to exit.");
-            Console.ReadKey();
-
-
         }
 
         private static async Task GetStreamTest()
