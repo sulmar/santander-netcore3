@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using ProtoBuf.Grpc.Server;
+using System.IO;
 
 namespace Shopper.DeliveryService
 {
@@ -13,7 +15,7 @@ namespace Shopper.DeliveryService
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-           // services.AddGrpc();
+           services.AddGrpc();
 
             // dotnet add package protobuf-net.Grpc.AspNetCore
             services.AddCodeFirstGrpc();
@@ -29,7 +31,20 @@ namespace Shopper.DeliveryService
                 app.UseDeveloperExceptionPage();
             }
 
+
+            string path = Path.Combine(env.ContentRootPath, "Protos");
+
+
+            app.UseStaticFiles();
+           
             app.UseRouting();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(path),
+                RequestPath = "/protos"
+            });
+
 
             app.UseEndpoints(endpoints =>
             {

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +18,7 @@ using Shopper.Domain.Services;
 using Shopper.Domain.Validators;
 using Shopper.Infrastructure;
 using Shopper.Infrastructure.Fakers;
+using Shopper.WebApi.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,12 +50,13 @@ namespace Shopper.WebApi
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter()));
 
-            // services.AddTransient<IProductRepository, FakeProductRepository>();
-            services.AddSingleton<IProductRepository, FakeProductRepository>();
-            services.AddSingleton<Faker<Product>, ProductFaker>();
+            // services.AddFakeServices();
 
-            services.AddSingleton<ICustomerRepository, FakeCustomerRepository>();
-            services.AddSingleton<Faker<Customer>, CustomerFaker>();
+            services.AddDbServices();
+
+            // dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+            services.AddDbContext<DbContext, ShopperContext>(options 
+                => options.UseSqlServer(Configuration.GetConnectionString("ShopperConnection")));
 
             string address = Configuration["EmailMessageService:Address"];
             int port = int.Parse(Configuration["EmailMessageService:Port"]);
@@ -83,8 +86,10 @@ namespace Shopper.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DbContext context)
         {
+            context.Database.Migrate();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
