@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
@@ -103,6 +104,9 @@ namespace Shopper.WebApi.Controllers
                     var securityToken = tokenService.Create(user);
 
                     string token = new JwtSecurityTokenHandler().WriteToken(securityToken);
+
+                    // optionalne: zapis tokena do ciasteczka
+                    Response.Cookies.Append("X-Access-Token", token, new CookieOptions { SameSite = SameSiteMode.Strict });
 
                     return Ok(token);
                 }

@@ -121,6 +121,18 @@ namespace Shopper.WebApi
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
                         ValidateIssuerSigningKey = true
                     };
+
+                    // optionalne: odczyt tokena z ciasteczka
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            context.Token = context.Request.Cookies["X-Access-Token"];
+
+                            return Task.CompletedTask;
+
+                        }
+                    };
                 });
 
             // dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
