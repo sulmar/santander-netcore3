@@ -1,6 +1,7 @@
 using Bogus;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +19,7 @@ using Shopper.Domain.Services;
 using Shopper.Domain.Validators;
 using Shopper.Infrastructure;
 using Shopper.Infrastructure.Fakers;
+using Shopper.WebApi.AuthenticationHandlers;
 using Shopper.WebApi.Extensions;
 using System;
 using System.Collections.Generic;
@@ -83,6 +85,14 @@ namespace Shopper.WebApi
                     .AllowAnyMethod());
             });
 
+            services.AddAuthentication(defaultScheme: "SecretKey")
+                .AddScheme<AuthenticationSchemeOptions, SecretKeyAuthenticationHandler>("SecretKey", null)
+                .AddScheme<AuthenticationSchemeOptions, SecretKeyAuthenticationHandler>("Abc", null)
+                ;
+
+            services.AddTransient<IAuthorizeRepository, FakeAuthorizeRepository>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,6 +113,7 @@ namespace Shopper.WebApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();            
 
             app.UseOpenApi();

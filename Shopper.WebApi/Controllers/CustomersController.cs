@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shopper.Domain;
 using Shopper.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Shopper.WebApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")] // Prefix
     public class CustomersController : ControllerBase
@@ -21,15 +24,32 @@ namespace Shopper.WebApi.Controllers
         }
 
         // GET api/customers
+        // [Authorize(Roles = "developer")]
         [HttpGet]
-        public async Task<IEnumerable<Customer>> Get()
+        public async Task<ActionResult<IEnumerable<Customer>>> Get()
         {
+            //if (!this.User.Identity.IsAuthenticated)
+            //{
+            //    return Unauthorized();
+            //}
+
+            if (!this.User.IsInRole("developer"))
+            {
+                return Forbid();                
+            }
+
+            var categories = this.User.FindAll("kat").Select(c => c.Value);
+
+            var email = this.User.FindFirstValue(ClaimTypes.Email);
+
             var customers = await customerRepository.GetAsync();
 
-            return customers;
+
+            return Ok(customers);
         }
 
 
+        [Authorize(AuthenticationSchemes = "Abc")]
         [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id:int}", Name = "GetCustomerById")]
