@@ -49,7 +49,7 @@ namespace Shopper.WebApi.Controllers
         }
 
 
-        [Authorize(AuthenticationSchemes = "Abc")]
+      //  [Authorize(AuthenticationSchemes = "Abc")]
         [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id:int}", Name = "GetCustomerById")]

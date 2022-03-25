@@ -11,7 +11,7 @@ namespace Shopper.Infrastructure
     // dotnet add package Microsoft.EntityFrameworkCore
     public class ShopperContext : DbContext
     {
-        public ShopperContext(DbContextOptions options) : base(options)
+        public ShopperContext(DbContextOptions<ShopperContext> options) : base(options)
         {
         }
 

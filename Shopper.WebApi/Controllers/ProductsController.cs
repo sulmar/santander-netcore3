@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Shopper.Domain;
 using Shopper.Domain.Models;
@@ -94,6 +95,7 @@ namespace Shopper.WebApi.Controllers
 
         // GET api/products?color=red&from=100&to=200
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Product>>> Get(ProductSearchCriteria searchCriteria)
         {
             var products = await productRepository.GetAsync(searchCriteria);

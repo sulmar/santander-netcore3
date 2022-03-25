@@ -11,7 +11,7 @@ namespace Shopper.Infrastructure
 
     public class DbCustomerRepository : DbEntityRepository<Customer>, ICustomerRepository
     {
-        public DbCustomerRepository(DbContext context) : base(context)
+        public DbCustomerRepository(ShopperContext context) : base(context)
         {
         }
 

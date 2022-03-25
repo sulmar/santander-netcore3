@@ -24,7 +24,7 @@ namespace Shopper.Domain
 
         public string Description { get; set; }
 
-        public int BarCode { get; set; }
+       // public int BarCode { get; set; }
 
         [Required]
         public string Color { get; set; }
