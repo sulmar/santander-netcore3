@@ -138,7 +138,8 @@ namespace Shopper.WebApi
 
             services.AddHealthChecks()
                         .AddCheck("Ping", () => HealthCheckResult.Healthy())
-                        .AddCheck<RandomHealthCheck>("random");
+                        .AddCheck<RandomHealthCheck>("random")
+                        .AddDbContextCheck<ShopperContext>(); // dotnet add package Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore
 
             // Install-Package AspNetCore.HealthCheck.UI            
             services.AddHealthChecksUI()
