@@ -74,7 +74,7 @@ namespace Shopper.Api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/",
+                endpoints.MapGet("/",   
                     async context => await context.Response.WriteAsync("Hello World!"));
 
                 // GET api/products

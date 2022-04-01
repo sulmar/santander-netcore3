@@ -29,22 +29,5 @@ namespace Shopper.Domain.Models
         Female
     }
 
-    // primitive-obsession
-    public class Sensor
-    {
-        public Voltage Voltage { get; set; }
-        public Power Power { get; set; }
-    }
-
-    public class Voltage
-    {
-        public float Value { get; set; }
-    }
-
-    public class Power
-    {
-        public float Value { get; set; }
-    }
-
  
 }
