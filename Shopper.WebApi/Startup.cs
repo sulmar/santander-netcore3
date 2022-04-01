@@ -1,35 +1,28 @@
-using Bogus;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Serilog;
 using Shopper.Domain;
 using Shopper.Domain.Models;
 using Shopper.Domain.Services;
 using Shopper.Domain.Validators;
 using Shopper.Infrastructure;
-using Shopper.Infrastructure.Fakers;
 using Shopper.WebApi.AuthenticationHandlers;
 using Shopper.WebApi.Controllers;
 using Shopper.WebApi.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Shopper.WebApi.HealthChecks;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Shopper.WebApi
@@ -143,6 +136,14 @@ namespace Shopper.WebApi
 
             services.AddTransient<UsersSeeder>();
 
+            services.AddHealthChecks()
+                        .AddCheck("Ping", () => HealthCheckResult.Healthy())
+                        .AddCheck<RandomHealthCheck>("random");
+
+            // Install-Package AspNetCore.HealthCheck.UI            
+            services.AddHealthChecksUI()
+                .AddInMemoryStorage();
+
 
         }
 
@@ -179,6 +180,17 @@ namespace Shopper.WebApi
                 endpoints.MapControllers();
 
                 endpoints.MapGet("/dashboard", context => context.Response.WriteAsync("Hello Dashboard!"));
+                
+                // Install-Package AspNetCore.HealthCheck.UI.Client
+                endpoints.MapHealthChecks(Configuration["HealthCheck:Endpoint"], new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
+
+                // http://localhost:5000/healthchecks-ui
+                endpoints.MapHealthChecksUI();
+
             });
         }
 

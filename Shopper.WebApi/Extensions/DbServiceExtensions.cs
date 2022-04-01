@@ -4,6 +4,7 @@ using Shopper.Infrastructure;
 
 namespace Shopper.WebApi.Extensions
 {
+
     public static class DbServiceExtensions
     {
         public static IServiceCollection AddDbServices(this IServiceCollection services)
