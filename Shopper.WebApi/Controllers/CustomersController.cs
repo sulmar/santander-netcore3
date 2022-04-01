@@ -89,21 +89,21 @@ namespace Shopper.WebApi.Controllers
 
 
         // POST api/customers
-        [HttpPost]
-        [Consumes("application/x-www-form-urlencoded")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult<Customer>> PostFromForm([FromForm] Customer customer)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpPost]
+        //[Consumes("application/x-www-form-urlencoded")]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesDefaultResponseType]
+        //public async Task<ActionResult<Customer>> PostFromForm([FromForm] Customer customer)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            await customerRepository.AddAsync(customer);
+        //    await customerRepository.AddAsync(customer);
 
-            return CreatedAtRoute("GetCustomerById", new { Id = customer.Id }, customer);
-        }
+        //    return CreatedAtRoute("GetCustomerById", new { Id = customer.Id }, customer);
+        //}
 
         // PUT api/customers/{id}
         [HttpPut("{id:int}")]
